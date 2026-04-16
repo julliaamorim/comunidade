@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<!--
+  ============================================================
+  SITE COMUNIDADE SOLIDÁRIA
+  Arquivo: index.html
+  Descrição: Estrutura principal do site (o "esqueleto" da página)
+  O HTML define o CONTEÚDO e a ESTRUTURA, como os tijolos de uma casa.
+  ============================================================
+-->
+<html lang="pt-BR">
+
+<head>
+  <!-- Meta charset: garante que caracteres especiais (ã, ç, é) apareçam correto -->
+  <meta charset="UTF-8">
+
+  <!-- Viewport: ESSENCIAL para responsividade mobile. 
+       Diz ao celular para não dar zoom automático e usar a largura real da tela -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Título que aparece na aba do navegador -->
+  <title>Comunidade Solidária</title>
+
+  <!-- Meta description: aparece nos resultados de busca do Google -->
+  <meta name="description" content="Plataforma de ajuda comunitária — serviços, empregos, doações e muito mais.">
+
+  <!-- Importação de fontes do Google Fonts (carregadas da internet) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Importação dos ícones Lucide (biblioteca de ícones SVG leves) -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+  <!-- Link para o arquivo CSS externo (onde está todo o visual/estilo) -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- ============================================================
+       BARRA DE NAVEGAÇÃO (HEADER)
+       Fica fixa no topo da tela enquanto o usuário rola a página.
+       Contém o logo e os links de navegação para cada seção.
+       ============================================================ -->
+  <header class="navbar" id="navbar">
+    <div class="container navbar__inner">
+
+      <!-- Logo da comunidade -->
+      <a href="#inicio" class="navbar__logo">
+        <span class="logo-icon"><i data-lucide="heart-handshake"></i></span>
+        <span class="logo-text">Comunidade<strong>Solidária</strong></span>
+      </a>
+
+      <!-- Botão hambúrguer: visível apenas no mobile para abrir/fechar o menu -->
+      <!-- aria-label: melhora acessibilidade para leitores de tela -->
+      <button class="navbar__toggle" id="menuToggle" aria-label="Abrir menu">
+        <i data-lucide="menu"></i>
+      </button>
+
+      <!-- Menu de navegação: links que rolam suavemente até cada seção da página -->
+      <!-- Em desktop aparece normal; no mobile aparece/desaparece ao clicar no hambúrguer -->
+      <nav class="navbar__menu" id="navMenu">
+        <a href="#inicio" class="nav-link">Início</a>
+        <a href="#servicos" class="nav-link">Serviços</a>
+        <a href="#oportunidades" class="nav-link">Oportunidades</a>
+        <a href="#ajuda" class="nav-link">Pedidos de Ajuda</a>
+        <a href="#contato" class="nav-link nav-link--cta">Contato</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       SEÇÃO 1: PÁGINA INICIAL (HERO)
+       Primeira coisa que o usuário vê ao entrar no site.
+       Contém: apresentação, descrição do projeto e os dois botões principais.
+       ============================================================ -->
+  <section class="hero" id="inicio">
+
+    <!-- Decoração de fundo: círculos animados para visual dinâmico -->
+    <div class="hero__bg-shapes" aria-hidden="true">
+      <div class="shape shape-1"></div>
+      <div class="shape shape-2"></div>
+      <div class="shape shape-3"></div>
+    </div>
+
+    <div class="container hero__content">
+
+      <!-- Emblema/badge acima do título -->
+      <div class="hero__badge" data-animate>
+        <i data-lucide="users"></i>
+        <span>Unindo pessoas, transformando vidas</span>
+      </div>
+
+      <!-- Título principal da página -->
+      <h1 class="hero__title" data-animate>
+        A força da <span class="highlight">comunidade</span><br>ao seu alcance
+      </h1>
+
+      <!-- Descrição/explicação do projeto -->
+      <p class="hero__description" data-animate>
+        Somos uma plataforma feita para conectar moradores do bairro. 
+        Aqui você encontra serviços locais, vagas de emprego, oferece ou pede 
+        ajuda — tudo de forma simples, rápida e gratuita.
+      </p>
+
+      <!-- Botões de ação principais (CTA = Call To Action) -->
+      <div class="hero__buttons" data-animate>
+
+        <!-- Botão primário: rola até a seção de pedidos de ajuda -->
+        <a href="#ajuda" class="btn btn--primary">
+          <i data-lucide="hand-heart"></i>
+          Pedir Ajuda
+        </a>
+
+        <!-- Botão secundário: rola até a seção de serviços -->
+        <a href="#servicos" class="btn btn--secondary">
+          <i data-lucide="briefcase"></i>
+          Ver Serviços
+        </a>
+      </div>
+
+      <!-- Estatísticas da comunidade (visuais para gerar confiança) -->
+      <div class="hero__stats" data-animate>
+        <div class="stat">
+          <strong class="stat__number" data-count="320">0</strong>
+          <span class="stat__label">Moradores ativos</span>
+        </div>
+        <div class="stat__divider"></div>
+        <div class="stat">
+          <strong class="stat__number" data-count="85">0</strong>
+          <span class="stat__label">Serviços prestados</span>
+        </div>
+        <div class="stat__divider"></div>
+        <div class="stat">
+          <strong class="stat__number" data-count="47">0</strong>
+          <span class="stat__label">Famílias ajudadas</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SEÇÃO 2: SERVIÇOS DA COMUNIDADE
+       Lista de profissionais disponíveis no bairro.
+       Cada card representa um tipo de serviço.
+       ============================================================ -->
+  <section class="section services" id="servicos">
+    <div class="container">
+
+      <!-- Cabeçalho da seção com título e subtítulo -->
+      <div class="section__header" data-animate>
+        <span class="section__tag">Serviços</span>
+        <h2 class="section__title">Profissionais da nossa comunidade</h2>
+        <p class="section__subtitle">
+          Contrate quem é do bairro. Gere renda local e apoie seus vizinhos.
+        </p>
+      </div>
+
+      <!-- Grade de cards de serviços — o JS adiciona as animações de entrada -->
+      <div class="services__grid" id="servicesGrid">
+
+        <!-- Cada div.service-card é um serviço disponível -->
+        <!-- data-category: usado pelo JavaScript para filtrar os cards -->
+
+        <div class="service-card" data-category="manutencao" data-animate>
+          <div class="service-card__icon" style="--color: #f97316;">
+            <i data-lucide="zap"></i>
+          </div>
+          <h3 class="service-card__title">Eletricista</h3>
+          <p class="service-card__desc">Instalações, reparos e manutenção elétrica residencial e comercial.</p>
+          <a href="#contato" class="service-card__link">Solicitar <i data-lucide="arrow-right"></i></a>
+        </div>
+
+        <div class="service-card" data-category="manutencao" data-animate>
+          <div class="service-card__icon" style="--color: #3b82f6;">
+            <i data-lucide="droplets"></i>
+          </div>
+          <h3 class="service-card__title">Encanador</h3>
+          <p class="service-card__desc">Conserto de vazamentos, desentupimento e instalação hidráulica.</p>
+          <a href="#contato" class="service-card__link">Solicitar <i data-lucide="arrow-right"></i></a>
+        </div>
+
+        <div class="service-card" data-category="limpeza" data-animate>
+          <div class="service-card__icon" style="--color: #a855f7;">
+            <i data-lucide="sparkles"></i>
+          </div>
+          <h3 class="service-card__title">Diarista</h3>
+          <p class="service-card__desc">Limpeza e organização da casa, escritório ou estabelecimento comercial.</p>
+          <a href="#contato" class="service-card__link">Solicitar <i data-lucide="arrow-right"></i></a>
+        </div>
+
+        <div class="service-card" data-category="construcao" data-animate>
+          <div class="service-card__icon" style="--color: #ef4444;">
+            <i data-lucide="hammer"></i>
+          </div>
+          <h3 class="service-card__title">Pedreiro</h3>
+          <p class="service-card__desc">Construção, reformas, reboco e assentamento de pisos e azulejos.</p>
+          <a href="#contato" class="service-card__link">Solicitar <i data-lucide="arrow-right"></i></a>
+        </div>
+
+        <div class="service-card" data-category="cuidados" data-animate>
+          <div class="service-card__icon" style="--color: #ec4899;">
+            <i data-lucide="baby"></i>
+          </div>
+          <h3 class="service-card__title">Babá / Cuidador(a)</h3>
+          <p class="service-card__desc">Cuidados com crianças, idosos e pessoas com necessidades especiais.</p>
+          <a href="#contato" class="service-card__link">Solicitar <i data-lucide="arrow-right"></i></a>
+        </div>
+
+        <div class="service-card" data-category="educacao" data-animate>
+          <div class="service-card__icon" style="--color: #10b981;">
+            <i data-lucide="book-open"></i>
+          </div>
+          <h3 class="service-card__title">Aulas Particulares</h3>
+          <p class="service-card__desc">Reforço escolar para crianças e jovens — matemática, português e mais.</p>
+          <a href="#contato" class="service-card__link">Solicitar <i data-lucide="arrow-right"></i></a>
+        </div>
+
+        <div class="service-card" data-category="manutencao" data-animate>
+          <div class="service-card__icon" style="--color: #f59e0b;">
+            <i data-lucide="wrench"></i>
+          </div>
+          <h3 class="service-card__title">Marceneiro</h3>
+          <p class="service-card__desc">Móveis sob medida, reparos em madeira e carpintaria em geral.</p>
+          <a href="#contato" class="service-card__link">Solicitar <i data-lucide="arrow-right"></i></a>
+        </div>
+
+        <div class="service-card" data-category="limpeza" data-animate>
+          <div class="service-card__icon" style="--color: #06b6d4;">
+            <i data-lucide="shirt"></i>
+          </div>
+          <h3 class="service-card__title">Lavanderia / Passadeira</h3>
+          <p class="service-card__desc">Lavagem, secagem e passadoria de roupas com atendimento domiciliar.</p>
+          <a href="#contato" class="service-card__link">Solicitar <i data-lucide="arrow-right"></i></a>
+        </div>
+
+        <div class="service-card" data-category="cuidados" data-animate>
+          <div class="service-card__icon" style="--color: #84cc16;">
+            <i data-lucide="scissors"></i>
+          </div>
+          <h3 class="service-card__title">Cabeleireiro(a)</h3>
+          <p class="service-card__desc">Cortes, coloração e tratamentos capilares com atendimento em domicílio.</p>
+          <a href="#contato" class="service-card__link">Solicitar <i data-lucide="arrow-right"></i></a>
+        </div>
+      </div>
+
+      <!-- Botão para ver mais serviços (abre modal ou rolagem) -->
+      <div class="section__footer" data-animate>
+        <p>Você oferece algum serviço? <a href="#contato" class="text-link">Cadastre-se gratuitamente →</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SEÇÃO 3: OPORTUNIDADES (Empregos e Bicos)
+       Lista vagas de emprego e trabalhos temporários disponíveis.
+       ============================================================ -->
+  <section class="section opportunities" id="oportunidades">
+    <div class="container">
+
+      <div class="section__header" data-animate>
+        <span class="section__tag">Oportunidades</span>
+        <h2 class="section__title">Empregos e bicos disponíveis</h2>
+        <p class="section__subtitle">
+          Vagas formais, informais e trabalhos temporários perto de você.
+        </p>
+      </div>
+
+      <!-- Abas para filtrar entre "Empregos" e "Bicos"
+           O JavaScript controla qual aba está ativa -->
+      <div class="tabs" data-animate>
+        <button class="tab-btn tab-btn--active" data-tab="empregos">
+          <i data-lucide="building-2"></i> Empregos
+        </button>
+        <button class="tab-btn" data-tab="bicos">
+          <i data-lucide="clock"></i> Bicos
+        </button>
+      </div>
+
+      <!-- Painel de Empregos (visível por padrão) -->
+      <div class="tab-panel tab-panel--active" id="tab-empregos">
+        <div class="jobs__grid">
+
+          <!-- Cada job-card é uma vaga de emprego -->
+          <article class="job-card" data-animate>
+            <div class="job-card__header">
+              <div class="job-card__icon"><i data-lucide="utensils"></i></div>
+              <div>
+                <h3 class="job-card__title">Auxiliar de Cozinha</h3>
+                <span class="job-card__company">Restaurante do Seu João</span>
+              </div>
+              <span class="job-badge job-badge--green">CLT</span>
+            </div>
+            <p class="job-card__desc">Preparo de alimentos, higiene da cozinha e suporte ao cozinheiro principal.</p>
+            <div class="job-card__footer">
+              <span><i data-lucide="map-pin"></i> Bairro São José</span>
+              <span><i data-lucide="dollar-sign"></i> R$ 1.400/mês</span>
+              <a href="#contato" class="btn btn--sm">Candidatar</a>
+            </div>
+          </article>
+
+          <article class="job-card" data-animate>
+            <div class="job-card__header">
+              <div class="job-card__icon"><i data-lucide="shopping-bag"></i></div>
+              <div>
+                <h3 class="job-card__title">Atendente de Loja</h3>
+                <span class="job-card__company">Armarinho da Dona Maria</span>
+              </div>
+              <span class="job-badge job-badge--green">CLT</span>
+            </div>
+            <p class="job-card__desc">Atendimento ao cliente, organização de estoque e caixa registradora.</p>
+            <div class="job-card__footer">
+              <span><i data-lucide="map-pin"></i> Centro</span>
+              <span><i data-lucide="dollar-sign"></i> R$ 1.320/mês</span>
+              <a href="#contato" class="btn btn--sm">Candidatar</a>
+            </div>
+          </article>
+
+          <article class="job-card" data-animate>
+            <div class="job-card__header">
+              <div class="job-card__icon"><i data-lucide="truck"></i></div>
+              <div>
+                <h3 class="job-card__title">Ajudante de Entrega</h3>
+                <span class="job-card__company">Distribuidora Norte</span>
+              </div>
+              <span class="job-badge job-badge--blue">PJ</span>
+            </div>
+            <p class="job-card__desc">Auxílio no carregamento e entrega de mercadorias. CNH não necessária.</p>
+            <div class="job-card__footer">
+              <span><i data-lucide="map-pin"></i> Vila Nova</span>
+              <span><i data-lucide="dollar-sign"></i> R$ 1.200/mês</span>
+              <a href="#contato" class="btn btn--sm">Candidatar</a>
+            </div>
+          </article>
+
+        </div>
+      </div>
+
+      <!-- Painel de Bicos (oculto por padrão, ativado pelo JS) -->
+      <div class="tab-panel" id="tab-bicos">
+        <div class="jobs__grid">
+
+          <article class="job-card" data-animate>
+            <div class="job-card__header">
+              <div class="job-card__icon"><i data-lucide="paint-bucket"></i></div>
+              <div>
+                <h3 class="job-card__title">Pintura de Quarto</h3>
+                <span class="job-card__company">Família Oliveira</span>
+              </div>
+              <span class="job-badge job-badge--orange">Bico</span>
+            </div>
+            <p class="job-card__desc">Pintura de 2 quartos. Tinta fornecida pelo contratante. Trabalho para 1 dia.</p>
+            <div class="job-card__footer">
+              <span><i data-lucide="map-pin"></i> Rua das Flores</span>
+              <span><i data-lucide="dollar-sign"></i> R$ 200 / dia</span>
+              <a href="#contato" class="btn btn--sm">Entrar em contato</a>
+            </div>
+          </article>
+
+          <article class="job-card" data-animate>
+            <div class="job-card__header">
+              <div class="job-card__icon"><i data-lucide="leaf"></i></div>
+              <div>
+                <h3 class="job-card__title">Limpeza de Quintal</h3>
+                <span class="job-card__company">Sr. Carlos</span>
+              </div>
+              <span class="job-badge job-badge--orange">Bico</span>
+            </div>
+            <p class="job-card__desc">Roçagem, varrição e limpeza geral de quintal grande. Materiais disponíveis.</p>
+            <div class="job-card__footer">
+              <span><i data-lucide="map-pin"></i> Av. Principal</span>
+              <span><i data-lucide="dollar-sign"></i> R$ 150 / dia</span>
+              <a href="#contato" class="btn btn--sm">Entrar em contato</a>
+            </div>
+          </article>
+
+          <article class="job-card" data-animate>
+            <div class="job-card__header">
+              <div class="job-card__icon"><i data-lucide="package"></i></div>
+              <div>
+                <h3 class="job-card__title">Ajuda na Mudança</h3>
+                <span class="job-card__company">Família Souza</span>
+              </div>
+              <span class="job-badge job-badge--orange">Bico</span>
+            </div>
+            <p class="job-card__desc">Precisa de 2 pessoas para ajudar na mudança no próximo sábado. Paga almoço.</p>
+            <div class="job-card__footer">
+              <span><i data-lucide="map-pin"></i> Jardim América</span>
+              <span><i data-lucide="dollar-sign"></i> R$ 100 + almoço</span>
+              <a href="#contato" class="btn btn--sm">Entrar em contato</a>
+            </div>
+          </article>
+
+        </div>
+      </div>
+
+      <div class="section__footer" data-animate>
+        <p>Tem uma vaga ou bico para oferecer? <a href="#contato" class="text-link">Publicar gratuitamente →</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SEÇÃO 4: PEDIDOS DE AJUDA
+       Moradores podem pedir doações ou outros tipos de ajuda.
+       Exibe cards com os pedidos ativos da comunidade.
+       ============================================================ -->
+  <section class="section help-requests" id="ajuda">
+    <div class="container">
+
+      <div class="section__header" data-animate>
+        <span class="section__tag">Pedidos de Ajuda</span>
+        <h2 class="section__title">Quem precisa da sua mão</h2>
+        <p class="section__subtitle">
+          Pequenos gestos transformam vidas. Veja quem precisa de ajuda agora.
+        </p>
+      </div>
+
+      <!-- Grade de pedidos de ajuda -->
+      <div class="help__grid">
+
+        <!-- Cada help-card representa um pedido de uma pessoa/família -->
+        <!-- data-type: "doacao" ou "ajuda" — usado visualmente no badge -->
+
+        <article class="help-card" data-type="doacao" data-animate>
+          <div class="help-card__top">
+            <div class="help-avatar">
+              <!-- Iniciais da pessoa como avatar acessível -->
+              <span>AM</span>
+            </div>
+            <div class="help-card__info">
+              <h3 class="help-card__name">Ana Maria, 67 anos</h3>
+              <span class="help-badge help-badge--donation">Doação</span>
+            </div>
+          </div>
+          <p class="help-card__message">
+            "Minha geladeira parou de funcionar e estou sem condições de comprar outra. 
+            Se alguém tiver uma usada para doação, agradeço de coração."
+          </p>
+          <div class="help-card__meta">
+            <span><i data-lucide="map-pin"></i> Rua das Acácias, 12</span>
+            <span><i data-lucide="clock"></i> Há 2 dias</span>
+          </div>
+          <a href="#contato" class="btn btn--help">
+            <i data-lucide="hand-heart"></i> Quero ajudar
+          </a>
+        </article>
+
+        <article class="help-card" data-type="ajuda" data-animate>
+          <div class="help-card__top">
+            <div class="help-avatar help-avatar--b">
+              <span>RF</span>
+            </div>
+            <div class="help-card__info">
+              <h3 class="help-card__name">Roberto F., 3 filhos</h3>
+              <span class="help-badge help-badge--help">Ajuda</span>
+            </div>
+          </div>
+          <p class="help-card__message">
+            "Perdi meu emprego há um mês. Preciso de indicação para qualquer trabalho, 
+            não me importo com o tipo. Tenho experiência em construção civil."
+          </p>
+          <div class="help-card__meta">
+            <span><i data-lucide="map-pin"></i> Vila Esperança</span>
+            <span><i data-lucide="clock"></i> Há 5 dias</span>
+          </div>
+          <a href="#contato" class="btn btn--help">
+            <i data-lucide="hand-heart"></i> Quero ajudar
+          </a>
+        </article>
+
+        <article class="help-card" data-type="doacao" data-animate>
+          <div class="help-card__top">
+            <div class="help-avatar help-avatar--c">
+              <span>LS</span>
+            </div>
+            <div class="help-card__info">
+              <h3 class="help-card__name">Luana S., mãe solo</h3>
+              <span class="help-badge help-badge--donation">Doação</span>
+            </div>
+          </div>
+          <p class="help-card__message">
+            "Preciso de roupas e calçados para crianças de 5 a 8 anos. 
+            Qualquer tamanho e estado ajuda muito minha família neste momento."
+          </p>
+          <div class="help-card__meta">
+            <span><i data-lucide="map-pin"></i> Bairro do Bosque</span>
+            <span><i data-lucide="clock"></i> Hoje</span>
+          </div>
+          <a href="#contato" class="btn btn--help">
+            <i data-lucide="hand-heart"></i> Quero ajudar
+          </a>
+        </article>
+
+      </div>
+
+      <!-- Botão para fazer um pedido de ajuda — abre o formulário de pedido -->
+      <div class="section__footer" data-animate>
+        <button class="btn btn--primary btn--large" id="openHelpModal">
+          <i data-lucide="plus-circle"></i>
+          Fazer um pedido de ajuda
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       MODAL: FORMULÁRIO DE PEDIDO DE AJUDA
+       Aparece ao clicar no botão "Fazer um pedido de ajuda".
+       O JavaScript controla a abertura e o fechamento deste modal.
+       ============================================================ -->
+  <div class="modal-overlay" id="helpModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal">
+      <button class="modal__close" id="closeHelpModal" aria-label="Fechar">
+        <i data-lucide="x"></i>
+      </button>
+      <h2 class="modal__title" id="modalTitle">Fazer um pedido de ajuda</h2>
+      <p class="modal__subtitle">Seu pedido será publicado para toda a comunidade ver.</p>
+
+      <!-- Formulário de pedido -->
+      <!-- action="#" impede que a página recarregue ao enviar (o JS cuida disso) -->
+      <form class="modal__form" id="helpForm" novalidate>
+
+        <div class="form-group">
+          <label for="helpName">Seu nome</label>
+          <input type="text" id="helpName" placeholder="Ex: Maria Silva" required>
+        </div>
+
+        <div class="form-group">
+          <label for="helpType">Tipo de pedido</label>
+          <select id="helpType" required>
+            <option value="">Selecione...</option>
+            <option value="doacao">Doação</option>
+            <option value="ajuda">Ajuda</option>
+            <option value="emprego">Indicação de Emprego</option>
+            <option value="outro">Outro</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="helpMessage">Descreva sua necessidade</label>
+          <textarea id="helpMessage" rows="4" placeholder="Conte o que você precisa..." required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="helpContact">WhatsApp para contato</label>
+          <input type="tel" id="helpContact" placeholder="(00) 00000-0000" required>
+        </div>
+
+        <button type="submit" class="btn btn--primary btn--full">
+          <i data-lucide="send"></i> Publicar pedido
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SEÇÃO 5: CONTATO / WHATSAPP
+       Links diretos para WhatsApp, email e localização.
+       ============================================================ -->
+  <section class="section contact" id="contato">
+    <div class="container">
+
+      <div class="section__header" data-animate>
+        <span class="section__tag">Contato</span>
+        <h2 class="section__title">Fale com a gente</h2>
+        <p class="section__subtitle">
+          Nossa equipe está disponível para ajudar você. Escolha o canal mais fácil.
+        </p>
+      </div>
+
+      <!-- Cards de contato lado a lado -->
+      <div class="contact__grid">
+
+        <!-- WhatsApp — link direto que abre o app/web do WhatsApp -->
+        <!-- wa.me/: número de telefone sem espaços, parênteses ou traços -->
+        <a href="https://wa.me/5511999999999?text=Olá!%20Vim%20pelo%20site%20da%20Comunidade%20Solidária%20e%20preciso%20de%20ajuda."
+           class="contact-card contact-card--whatsapp"
+           target="_blank" rel="noopener noreferrer"
+           data-animate>
+          <!-- target="_blank": abre em nova aba -->
+          <!-- rel="noopener noreferrer": segurança ao abrir links externos -->
+          <div class="contact-card__icon">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="32" height="32">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            </svg>
+          </div>
+          <div class="contact-card__text">
+            <strong>WhatsApp</strong>
+            <span>Resposta rápida</span>
+            <em>(11) 9 9999-9999</em>
+          </div>
+          <span class="contact-card__arrow"><i data-lucide="arrow-right"></i></span>
+        </a>
+
+        <!-- Email -->
+        <a href="mailto:contato@comunidadesolidaria.com.br"
+           class="contact-card contact-card--email"
+           data-animate>
+          <div class="contact-card__icon">
+            <i data-lucide="mail"></i>
+          </div>
+          <div class="contact-card__text">
+            <strong>E-mail</strong>
+            <span>Para assuntos formais</span>
+            <em>contato@comunidadesolidaria.com.br</em>
+          </div>
+          <span class="contact-card__arrow"><i data-lucide="arrow-right"></i></span>
+        </a>
+
+        <!-- Localização -->
+        <div class="contact-card contact-card--location" data-animate>
+          <div class="contact-card__icon">
+            <i data-lucide="map-pin"></i>
+          </div>
+          <div class="contact-card__text">
+            <strong>Localização</strong>
+            <span>Centro Comunitário</span>
+            <em>Rua da Solidariedade, 100 — Bairro União</em>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Banner de urgência para WhatsApp -->
+      <div class="whatsapp-banner" data-animate>
+        <div class="whatsapp-banner__text">
+          <strong>Precisa de ajuda urgente?</strong>
+          <span>Fale agora pelo WhatsApp — respondemos em minutos!</span>
+        </div>
+        <a href="https://wa.me/5511999999999?text=URGENTE:%20Preciso%20de%20ajuda%20da%20Comunidade%20Solidária!"
+           class="btn btn--whatsapp" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+          </svg>
+          Chamar no WhatsApp
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       RODAPÉ (FOOTER)
+       Parte final da página com links rápidos e créditos.
+       ============================================================ -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <span class="logo-icon"><i data-lucide="heart-handshake"></i></span>
+        <span class="logo-text">Comunidade<strong>Solidária</strong></span>
+      </div>
+      <p class="footer__copy">
+        © 2025 Comunidade Solidária. Feito com <i data-lucide="heart" style="display:inline; width:14px; color:#ef4444;"></i> pelo bairro, para o bairro.
+      </p>
+      <nav class="footer__links">
+        <a href="#inicio">Início</a>
+        <a href="#servicos">Serviços</a>
+        <a href="#oportunidades">Empregos</a>
+        <a href="#ajuda">Ajuda</a>
+        <a href="#contato">Contato</a>
+      </nav>
+    </div>
+  </footer>
+
+  <!-- Botão flutuante do WhatsApp (aparece em toda a página) -->
+  <!-- Fica fixo no canto inferior direito da tela -->
+  <a href="https://wa.me/5511999999999" 
+     class="whatsapp-float" 
+     target="_blank" 
+     rel="noopener noreferrer"
+     aria-label="Chamar no WhatsApp">
+    <svg viewBox="0 0 24 24" fill="currentColor">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+    <span class="whatsapp-float__tooltip">Fale conosco!</span>
+  </a>
+
+  <!-- Importação do arquivo JavaScript externo
+       defer: garante que o JS só rode DEPOIS que o HTML inteiro for carregado -->
+  <script src="script.js" defer></script>
+</body>
+</html>
