@@ -1,0 +1,1032 @@
+/*
+  ============================================================
+  COMUNIDADE SOLIDÁRIA — style.css (v2 — Mobile-First)
+
+  Abordagem MOBILE-FIRST:
+  Escrevemos os estilos base para telas pequenas (celular)
+  e usamos min-width para adicionar estilos de telas maiores.
+  Isso evita problemas de sobreposição e garante que o mobile
+  seja sempre a base sólida.
+
+  ORGANIZAÇÃO:
+  1.  Variáveis globais
+  2.  Reset e base
+  3.  Utilitários (container, seções, tags)
+  4.  Botões
+  5.  Navbar  ← CORRIGIDO: hambúrguer e menu mobile
+  6.  Hero
+  7.  Serviços
+  8.  Oportunidades / Abas
+  9.  Pedidos de Ajuda
+  10. Modal
+  11. Contato  ← CORRIGIDO: cards empilhados corretamente
+  12. Rodapé
+  13. Botão flutuante WhatsApp  ← CORRIGIDO: posicionamento fixo
+  14. Animações
+  15. Media queries (tablet e desktop)
+  ============================================================
+*/
+
+
+/* ============================================================
+   1. VARIÁVEIS GLOBAIS
+   ============================================================ */
+:root {
+  --color-primary:       #16a34a;
+  --color-primary-dark:  #15803d;
+  --color-primary-light: #dcfce7;
+  --color-accent:        #f97316;
+  --color-accent-dark:   #ea6c0a;
+  --color-whatsapp:      #25D366;
+  --color-whatsapp-dark: #1ebe5d;
+
+  --color-bg:             #f8fafc;
+  --color-surface:        #ffffff;
+  --color-border:         #e2e8f0;
+  --color-text:           #1e293b;
+  --color-text-secondary: #64748b;
+  --color-text-muted:     #94a3b8;
+
+  --font-display: 'Sora', sans-serif;
+  --font-body:    'Inter', sans-serif;
+
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-8:  32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+
+  --radius-sm:   6px;
+  --radius-md:   12px;
+  --radius-lg:   20px;
+  --radius-full: 9999px;
+
+  --shadow-sm: 0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.04);
+  --shadow-md: 0 4px 16px rgba(0,0,0,.08), 0 2px 6px rgba(0,0,0,.04);
+  --shadow-lg: 0 10px 40px rgba(0,0,0,.10), 0 4px 12px rgba(0,0,0,.05);
+
+  --transition: 0.25s ease;
+  --container-max: 1100px;
+  --navbar-h: 64px;
+}
+
+
+/* ============================================================
+   2. RESET E BASE
+   ============================================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--navbar-h);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  overflow-x: hidden;
+  width: 100%;
+}
+
+a   { color: inherit; text-decoration: none; }
+ul  { list-style: none; }
+img { max-width: 100%; display: block; }
+
+button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-family: var(--font-body);
+}
+
+input, select, textarea {
+  font-family: var(--font-body);
+  /* Evita zoom automático no iOS ao focar em inputs */
+  font-size: max(16px, 1rem);
+}
+
+
+/* ============================================================
+   3. UTILITÁRIOS
+   ============================================================ */
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding-left: var(--space-4);
+  padding-right: var(--space-4);
+}
+
+.section { padding: var(--space-12) 0; }
+
+.section__header {
+  text-align: center;
+  margin-bottom: var(--space-10);
+}
+
+.section__tag {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  background: var(--color-primary-light);
+  padding: 3px var(--space-3);
+  border-radius: var(--radius-full);
+  margin-bottom: var(--space-3);
+}
+
+.section__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 5vw, 2.2rem);
+  font-weight: 800;
+  color: var(--color-text);
+  margin-bottom: var(--space-3);
+  line-height: 1.2;
+}
+
+.section__subtitle {
+  font-size: 0.95rem;
+  color: var(--color-text-secondary);
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.section__footer {
+  text-align: center;
+  margin-top: var(--space-8);
+  color: var(--color-text-secondary);
+  font-size: 0.9rem;
+}
+
+.text-link { color: var(--color-primary); font-weight: 600; }
+
+
+/* ============================================================
+   4. BOTÕES
+   ============================================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 0.7rem 1.4rem;
+  border-radius: var(--radius-full);
+  transition: all var(--transition);
+  cursor: pointer;
+  white-space: nowrap;
+  border: 2px solid transparent;
+  flex-shrink: 0;
+}
+
+.btn--primary {
+  background: var(--color-primary);
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(22,163,74,.35);
+}
+.btn--primary:hover { background: var(--color-primary-dark); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(22,163,74,.45); }
+
+.btn--secondary {
+  background: rgba(255,255,255,.15);
+  color: #fff;
+  border-color: rgba(255,255,255,.6);
+  backdrop-filter: blur(8px);
+}
+.btn--secondary:hover { background: rgba(255,255,255,.25); transform: translateY(-2px); }
+
+.btn--help {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: var(--color-accent);
+  color: #fff;
+  font-weight: 600;
+  padding: 0.6rem 1.2rem;
+  border-radius: var(--radius-full);
+  font-size: 0.9rem;
+  transition: all var(--transition);
+  margin-top: var(--space-4);
+}
+.btn--help:hover { background: var(--color-accent-dark); transform: translateY(-1px); }
+
+.btn--whatsapp {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: var(--color-whatsapp);
+  color: #fff;
+  font-weight: 700;
+  padding: 0.85rem 1.8rem;
+  border-radius: var(--radius-full);
+  font-size: 1rem;
+  transition: all var(--transition);
+}
+.btn--whatsapp:hover { background: var(--color-whatsapp-dark); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(37,211,102,.4); }
+
+.btn--sm {
+  padding: 0.4rem 1rem;
+  font-size: 0.82rem;
+  background: var(--color-primary);
+  color: #fff;
+  border-radius: var(--radius-full);
+  font-weight: 600;
+  transition: all var(--transition);
+}
+.btn--sm:hover { background: var(--color-primary-dark); }
+
+.btn--full  { width: 100%; }
+.btn--large { padding: 0.95rem 2rem; font-size: 1.05rem; }
+
+
+/* ============================================================
+   5. NAVBAR
+   CORREÇÃO: hambúrguer alinhado + menu mobile funcional
+   ============================================================ */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  height: var(--navbar-h);
+  background: rgba(255,255,255,.97);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--color-border);
+  transition: box-shadow var(--transition);
+}
+.navbar--scrolled { box-shadow: var(--shadow-md); }
+
+.navbar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+}
+
+/* Logo */
+.navbar__logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-display);
+  font-size: 1rem;
+  white-space: nowrap;
+}
+.logo-icon              { color: var(--color-primary); display: flex; align-items: center; }
+.logo-icon svg          { width: 22px; height: 22px; }
+.logo-text strong       { color: var(--color-primary); }
+
+/*
+  HAMBÚRGUER — visível por padrão (mobile-first).
+  Será escondido no breakpoint desktop com display:none.
+*/
+.navbar__toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  border-radius: var(--radius-sm);
+  color: var(--color-text);
+  transition: background var(--transition);
+  touch-action: manipulation;
+}
+.navbar__toggle:hover { background: var(--color-border); }
+.navbar__toggle svg   { width: 22px; height: 22px; }
+
+/*
+  MENU MOBILE — drawer animado.
+  Fechado: max-height:0 + overflow:hidden.
+  Aberto:  max-height grande o suficiente para mostrar os links.
+*/
+.navbar__menu {
+  position: fixed;
+  top: var(--navbar-h);
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 99;
+
+  background: #fff;
+  border-bottom: 1px solid transparent;
+
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  /* Estado fechado */
+  max-height: 0;
+  overflow: hidden;
+  padding: 0 var(--space-4);
+  opacity: 0;
+
+  transition:
+    max-height .32s ease,
+    opacity    .25s ease,
+    padding    .25s ease,
+    border-color .25s ease,
+    box-shadow .25s ease;
+}
+
+/* Estado aberto — JS adiciona esta classe */
+.navbar__menu--open {
+  max-height: 380px;
+  opacity: 1;
+  padding: var(--space-3) var(--space-4) var(--space-5);
+  border-color: var(--color-border);
+  box-shadow: var(--shadow-md);
+}
+
+.nav-link {
+  font-weight: 500;
+  font-size: 0.95rem;
+  color: var(--color-text-secondary);
+  padding: var(--space-3) var(--space-3);
+  border-radius: var(--radius-sm);
+  transition: all var(--transition);
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+}
+.nav-link:hover     { color: var(--color-primary); background: var(--color-primary-light); }
+.nav-link--cta {
+  background: var(--color-primary);
+  color: #fff !important;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  font-weight: 600;
+  margin-top: var(--space-2);
+}
+.nav-link--cta:hover { background: var(--color-primary-dark) !important; }
+
+
+/* ============================================================
+   6. HERO
+   ============================================================ */
+.hero {
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #064e3b 0%, #065f46 30%, #16a34a 70%, #22c55e 100%);
+  padding-top: var(--navbar-h);
+}
+
+.hero__bg-shapes { position: absolute; inset: 0; pointer-events: none; }
+
+.shape { position: absolute; border-radius: 50%; opacity: 0.12; }
+.shape-1 {
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, #4ade80, transparent);
+  top: -150px; right: -120px;
+  animation: float 8s ease-in-out infinite;
+}
+.shape-2 {
+  width: 350px; height: 350px;
+  background: radial-gradient(circle, #86efac, transparent);
+  bottom: -80px; left: -80px;
+  animation: float 10s ease-in-out infinite reverse;
+}
+.shape-3 {
+  width: 200px; height: 200px;
+  background: radial-gradient(circle, #bbf7d0, transparent);
+  top: 40%; left: 25%;
+  animation: float 6s ease-in-out infinite 2s;
+}
+
+.hero__content {
+  position: relative; z-index: 1;
+  padding: var(--space-16) 0;
+  color: #fff; text-align: center; width: 100%;
+}
+
+.hero__badge {
+  display: inline-flex; align-items: center; gap: var(--space-2);
+  background: rgba(255,255,255,.15);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,.3);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-full);
+  font-size: 0.82rem; font-weight: 500;
+  margin-bottom: var(--space-5);
+}
+.hero__badge svg { width: 15px; height: 15px; }
+
+.hero__title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 8vw, 4rem);
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: var(--space-5);
+  letter-spacing: -0.02em;
+}
+
+.highlight { position: relative; }
+.highlight::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; left: 0; right: 0;
+  height: 4px;
+  background: rgba(255,255,255,.5);
+  border-radius: 2px;
+}
+
+.hero__description {
+  font-size: clamp(0.95rem, 3vw, 1.15rem);
+  max-width: 540px;
+  margin: 0 auto var(--space-8);
+  opacity: 0.9;
+  line-height: 1.7;
+}
+
+/* Mobile: botões em coluna */
+.hero__buttons {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  align-items: stretch;
+  max-width: 280px;
+  margin: 0 auto var(--space-10);
+}
+.hero__buttons .btn { width: 100%; }
+
+.hero__stats {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-6);
+  flex-wrap: wrap;
+}
+.stat { display: flex; flex-direction: column; align-items: center; }
+.stat__number { font-family: var(--font-display); font-size: 2rem; font-weight: 800; line-height: 1; }
+.stat__label  { font-size: 0.75rem; opacity: 0.75; margin-top: 2px; }
+.stat__divider { width: 1px; height: 36px; background: rgba(255,255,255,.3); display: none; }
+
+
+/* ============================================================
+   7. SERVIÇOS
+   ============================================================ */
+.services { background: var(--color-bg); }
+
+.services__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+}
+
+.service-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  transition: all var(--transition);
+  display: flex; flex-direction: column; gap: var(--space-3);
+}
+.service-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); border-color: var(--color-primary); }
+
+.service-card__icon {
+  width: 46px; height: 46px;
+  border-radius: var(--radius-md);
+  display: flex; align-items: center; justify-content: center;
+  background: color-mix(in srgb, var(--color) 15%, transparent);
+  color: var(--color);
+}
+.service-card__icon svg { width: 20px; height: 20px; }
+
+.service-card__title { font-family: var(--font-display); font-weight: 700; font-size: 1rem; }
+.service-card__desc  { font-size: 0.88rem; color: var(--color-text-secondary); line-height: 1.5; flex: 1; }
+.service-card__link  {
+  display: inline-flex; align-items: center; gap: 4px;
+  color: var(--color-primary); font-weight: 600; font-size: 0.85rem;
+  margin-top: auto; transition: gap var(--transition);
+}
+.service-card__link:hover { gap: 8px; }
+.service-card__link svg { width: 13px; height: 13px; }
+
+
+/* ============================================================
+   8. OPORTUNIDADES
+   ============================================================ */
+.opportunities { background: #f1f5f9; }
+
+.tabs {
+  display: flex; gap: var(--space-1);
+  margin-bottom: var(--space-8);
+  background: var(--color-surface);
+  padding: 4px;
+  border-radius: var(--radius-full);
+  width: 100%;
+  max-width: 300px;
+  border: 1px solid var(--color-border);
+}
+
+.tab-btn {
+  flex: 1;
+  display: flex; align-items: center; justify-content: center; gap: var(--space-2);
+  padding: 0.55rem 1rem;
+  border-radius: var(--radius-full);
+  font-weight: 600; font-size: 0.88rem;
+  color: var(--color-text-secondary);
+  transition: all var(--transition);
+  min-height: 40px;
+}
+.tab-btn svg          { width: 15px; height: 15px; }
+.tab-btn--active      { background: var(--color-primary); color: #fff; box-shadow: var(--shadow-sm); }
+
+.tab-panel            { display: none; }
+.tab-panel--active    { display: block; }
+
+.jobs__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+}
+
+.job-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  transition: all var(--transition);
+  display: flex; flex-direction: column; gap: var(--space-3);
+}
+.job-card:hover { box-shadow: var(--shadow-md); border-color: var(--color-primary); }
+
+.job-card__header { display: flex; align-items: flex-start; gap: var(--space-3); }
+
+.job-card__icon {
+  width: 42px; height: 42px; min-width: 42px;
+  background: var(--color-primary-light); color: var(--color-primary);
+  border-radius: var(--radius-md);
+  display: flex; align-items: center; justify-content: center;
+}
+.job-card__icon svg { width: 18px; height: 18px; }
+
+.job-card__title   { font-family: var(--font-display); font-weight: 700; font-size: 0.95rem; line-height: 1.2; }
+.job-card__company { font-size: 0.78rem; color: var(--color-text-muted); margin-top: 2px; display: block; }
+
+.job-badge {
+  margin-left: auto;
+  font-size: 0.68rem; font-weight: 700;
+  padding: 2px 8px; border-radius: var(--radius-full); white-space: nowrap;
+}
+.job-badge--green  { background: #dcfce7; color: #166534; }
+.job-badge--blue   { background: #dbeafe; color: #1e40af; }
+.job-badge--orange { background: #ffedd5; color: #9a3412; }
+
+.job-card__desc { font-size: 0.85rem; color: var(--color-text-secondary); line-height: 1.5; flex: 1; }
+
+.job-card__footer {
+  display: flex; align-items: center; flex-wrap: wrap; gap: var(--space-2);
+  font-size: 0.78rem; color: var(--color-text-muted);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-border);
+}
+.job-card__footer span { display: flex; align-items: center; gap: 3px; }
+.job-card__footer svg  { width: 12px; height: 12px; }
+.job-card__footer .btn--sm { margin-left: auto; }
+
+
+/* ============================================================
+   9. PEDIDOS DE AJUDA
+   ============================================================ */
+.help-requests { background: var(--color-bg); }
+
+.help__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+}
+
+.help-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  transition: all var(--transition);
+  display: flex; flex-direction: column;
+}
+.help-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+
+.help-card__top {
+  display: flex; align-items: center; gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.help-avatar {
+  width: 46px; height: 46px; min-width: 46px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #16a34a, #22c55e);
+  display: flex; align-items: center; justify-content: center;
+  color: #fff;
+  font-family: var(--font-display); font-weight: 700; font-size: 0.82rem;
+}
+.help-avatar--b { background: linear-gradient(135deg, #3b82f6, #60a5fa); }
+.help-avatar--c { background: linear-gradient(135deg, #a855f7, #c084fc); }
+
+.help-card__name { font-family: var(--font-display); font-weight: 700; font-size: 0.92rem; line-height: 1.3; }
+
+.help-badge {
+  display: inline-block;
+  font-size: 0.68rem; font-weight: 700;
+  padding: 2px 8px; border-radius: var(--radius-full); margin-top: 2px;
+}
+.help-badge--donation { background: #fef3c7; color: #92400e; }
+.help-badge--help     { background: #dbeafe; color: #1e40af; }
+
+.help-card__message {
+  font-size: 0.88rem; color: var(--color-text-secondary);
+  line-height: 1.6; font-style: italic; flex: 1;
+  border-left: 3px solid var(--color-primary-light);
+  padding-left: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.help-card__meta {
+  display: flex; flex-wrap: wrap; gap: var(--space-3);
+  font-size: 0.75rem; color: var(--color-text-muted);
+}
+.help-card__meta span { display: flex; align-items: center; gap: 3px; }
+.help-card__meta svg  { width: 11px; height: 11px; }
+
+
+/* ============================================================
+   10. MODAL
+   ============================================================ */
+.modal-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.6);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 200;
+  display: flex; align-items: center; justify-content: center;
+  padding: var(--space-4);
+  opacity: 0; pointer-events: none;
+  transition: opacity var(--transition);
+}
+.modal-overlay--open { opacity: 1; pointer-events: all; }
+
+.modal {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  width: 100%; max-width: 460px;
+  position: relative;
+  max-height: 90svh; overflow-y: auto;
+  transform: scale(.95);
+  transition: transform var(--transition);
+}
+.modal-overlay--open .modal { transform: scale(1); }
+
+.modal__close {
+  position: absolute; top: var(--space-4); right: var(--space-4);
+  width: 32px; height: 32px;
+  border-radius: var(--radius-sm);
+  color: var(--color-text-muted);
+  display: flex; align-items: center; justify-content: center;
+  transition: all var(--transition);
+}
+.modal__close:hover { background: var(--color-border); color: var(--color-text); }
+.modal__close svg   { width: 18px; height: 18px; }
+
+.modal__title    { font-family: var(--font-display); font-size: 1.3rem; font-weight: 800; margin-bottom: 4px; }
+.modal__subtitle { font-size: 0.85rem; color: var(--color-text-secondary); margin-bottom: var(--space-5); }
+
+.modal__form { display: flex; flex-direction: column; gap: var(--space-4); }
+
+.form-group { display: flex; flex-direction: column; gap: 4px; }
+.form-group label { font-weight: 600; font-size: 0.85rem; color: var(--color-text); }
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: 0.7rem var(--space-3);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-text);
+  background: var(--color-bg);
+  transition: border-color var(--transition);
+  outline: none; width: 100%;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(22,163,74,.15);
+}
+.form-group textarea { resize: vertical; }
+
+
+/* ============================================================
+   11. CONTATO
+   CORREÇÃO principal: mobile-first com 1 coluna base.
+   Cada card usa min-width:0 para não vazar o conteúdo.
+   ============================================================ */
+.contact { background: #f1f5f9; }
+
+.contact__grid {
+  display: grid;
+  grid-template-columns: 1fr;   /* BASE MOBILE: 1 coluna, sem risco de ficar torto */
+  gap: var(--space-4);
+  margin-bottom: var(--space-8);
+}
+
+.contact-card {
+  background: var(--color-surface);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  transition: all var(--transition);
+  /* Impede overflow do conteúdo interno */
+  min-width: 0;
+  overflow: hidden;
+}
+.contact-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+
+.contact-card--whatsapp { border-color: var(--color-whatsapp); }
+.contact-card--whatsapp:hover { background: #f0fdf4; box-shadow: 0 8px 30px rgba(37,211,102,.2); }
+.contact-card--email:hover    { border-color: #3b82f6; background: #eff6ff; }
+.contact-card--location:hover { border-color: var(--color-primary); }
+
+/* Ícone — tamanho fixo, não encolhe nunca */
+.contact-card__icon {
+  width: 52px; height: 52px;
+  min-width: 52px;         /* CRÍTICO: impede encolhimento no flex */
+  border-radius: var(--radius-md);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.contact-card--whatsapp .contact-card__icon { background: #dcfce7; color: var(--color-whatsapp); }
+.contact-card--email    .contact-card__icon { background: #dbeafe; color: #3b82f6; }
+.contact-card--location .contact-card__icon { background: var(--color-primary-light); color: var(--color-primary); }
+.contact-card__icon svg { width: 26px; height: 26px; }
+
+/* Textos — flex:1 + min-width:0 garante que o texto quebre corretamente */
+.contact-card__text {
+  flex: 1;
+  min-width: 0;            /* CRÍTICO: evita overflow em flex containers */
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.contact-card__text strong {
+  font-family: var(--font-display); font-weight: 700; font-size: 0.95rem;
+  white-space: nowrap;
+}
+.contact-card__text span  { font-size: 0.78rem; color: var(--color-text-secondary); }
+.contact-card__text em {
+  font-style: normal; font-size: 0.82rem;
+  color: var(--color-text); font-weight: 500;
+  /* Trunca textos longos (email, endereço) sem quebrar layout */
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+
+/* Seta — não encolhe */
+.contact-card__arrow { color: var(--color-text-muted); flex-shrink: 0; }
+.contact-card__arrow svg { width: 16px; height: 16px; }
+
+/* Banner urgência WhatsApp — coluna no mobile */
+.whatsapp-banner {
+  background: linear-gradient(135deg, #064e3b, #16a34a);
+  border-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-5);
+  padding: var(--space-6) var(--space-5);
+  color: #fff;
+}
+.whatsapp-banner__text { display: flex; flex-direction: column; gap: 4px; }
+.whatsapp-banner__text strong { font-family: var(--font-display); font-size: 1.1rem; font-weight: 800; }
+.whatsapp-banner__text span   { font-size: 0.88rem; opacity: 0.85; }
+
+
+/* ============================================================
+   12. RODAPÉ
+   ============================================================ */
+.footer {
+  background: var(--color-text);
+  color: rgba(255,255,255,.7);
+  padding: var(--space-8) 0;
+}
+
+/* Mobile: empilhado e centralizado */
+.footer__inner {
+  display: flex; flex-direction: column;
+  align-items: center; text-align: center;
+  gap: var(--space-4);
+}
+
+.footer .logo-icon          { color: #4ade80; }
+.footer .logo-text          { color: #fff; }
+.footer .logo-text strong   { color: #4ade80; }
+
+.footer__copy {
+  font-size: 0.82rem;
+  display: flex; align-items: center; gap: 4px;
+  flex-wrap: wrap; justify-content: center;
+}
+
+.footer__links { display: flex; gap: var(--space-3); flex-wrap: wrap; justify-content: center; }
+.footer__links a { font-size: 0.82rem; opacity: 0.7; transition: opacity var(--transition); }
+.footer__links a:hover { opacity: 1; }
+
+
+/* ============================================================
+   13. BOTÃO FLUTUANTE WHATSAPP
+   CORREÇÃO: position:fixed sólido + env(safe-area-inset-bottom)
+   para respeitar a barra home de iPhones X+ e Android moderno.
+   ============================================================ */
+.whatsapp-float {
+  position: fixed;                    /* Fixo na TELA, não no documento */
+  /* env() garante que não fica atrás da home bar do iPhone */
+  bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+  right: 16px;
+  z-index: 300;                       /* Acima de tudo */
+
+  width: 52px;
+  height: 52px;
+  min-width: 52px;
+  border-radius: 50%;
+
+  background: var(--color-whatsapp);
+  color: #fff;
+  box-shadow: 0 4px 20px rgba(37,211,102,.55);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: all var(--transition);
+  touch-action: manipulation;
+}
+.whatsapp-float svg { width: 26px; height: 26px; flex-shrink: 0; }
+
+.whatsapp-float:hover {
+  background: var(--color-whatsapp-dark);
+  transform: scale(1.08);
+  box-shadow: 0 6px 28px rgba(37,211,102,.65);
+}
+
+/* Tooltip: oculto no mobile (não há hover em touch) */
+.whatsapp-float__tooltip { display: none; }
+
+
+/* ============================================================
+   14. ANIMAÇÕES
+   ============================================================ */
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50%       { transform: translateY(-18px) rotate(4deg); }
+}
+
+[data-animate] {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity .6s ease, transform .6s ease;
+}
+[data-animate].--visible { opacity: 1; transform: translateY(0); }
+
+[data-animate]:nth-child(1) { transition-delay: 0s; }
+[data-animate]:nth-child(2) { transition-delay: .08s; }
+[data-animate]:nth-child(3) { transition-delay: .16s; }
+[data-animate]:nth-child(4) { transition-delay: .24s; }
+[data-animate]:nth-child(5) { transition-delay: .32s; }
+[data-animate]:nth-child(6) { transition-delay: .40s; }
+[data-animate]:nth-child(7) { transition-delay: .48s; }
+[data-animate]:nth-child(8) { transition-delay: .56s; }
+[data-animate]:nth-child(9) { transition-delay: .64s; }
+
+
+/* ============================================================
+   15. MEDIA QUERIES — crescemos a partir do mobile
+   ============================================================ */
+
+/* 480px — smartphone grande / landscape */
+@media (min-width: 480px) {
+  .container { padding-left: var(--space-5); padding-right: var(--space-5); }
+
+  .hero__buttons { flex-direction: row; max-width: none; justify-content: center; }
+  .hero__buttons .btn { width: auto; }
+
+  .services__grid { grid-template-columns: repeat(2, 1fr); }
+  .help__grid     { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* 680px — tablet */
+@media (min-width: 680px) {
+  .section { padding: var(--space-16) 0; }
+
+  .jobs__grid     { grid-template-columns: repeat(2, 1fr); }
+  .contact__grid  { grid-template-columns: repeat(2, 1fr); }
+
+  /* Banner WhatsApp vira linha horizontal no tablet */
+  .whatsapp-banner {
+    flex-direction: row;
+    text-align: left;
+    justify-content: space-between;
+    padding: var(--space-6) var(--space-8);
+  }
+}
+
+/* 900px — desktop */
+@media (min-width: 900px) {
+  .section { padding: var(--space-20) 0; }
+
+  /* Esconde o hambúrguer no desktop */
+  .navbar__toggle { display: none !important; }
+
+  /*
+    MENU DESKTOP:
+    Cancela TODOS os estilos do drawer mobile e
+    exibe como flex horizontal normal.
+  */
+  .navbar__menu {
+    position: static !important;
+    width: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+    opacity: 1 !important;
+    padding: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    z-index: auto !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: var(--space-1) !important;
+    transition: none !important;
+  }
+
+  .nav-link       { min-height: auto; font-size: 0.9rem; }
+  .nav-link--cta  { margin-top: 0; padding: var(--space-2) var(--space-4); }
+
+  .services__grid { grid-template-columns: repeat(3, 1fr); }
+  .jobs__grid     { grid-template-columns: repeat(3, 1fr); }
+  .help__grid     { grid-template-columns: repeat(3, 1fr); }
+  .contact__grid  { grid-template-columns: repeat(3, 1fr); }
+
+  .footer__inner  { flex-direction: row; text-align: left; }
+  .footer__links  { justify-content: flex-end; }
+
+  .stat__divider  { display: block; }
+
+  /* Botão flutuante maior no desktop */
+  .whatsapp-float { width: 58px; height: 58px; bottom: 24px; right: 24px; }
+  .whatsapp-float svg { width: 28px; height: 28px; }
+
+  /* Tooltip visível apenas no desktop */
+  .whatsapp-float__tooltip {
+    display: block;
+    position: absolute;
+    right: calc(100% + 10px);
+    background: var(--color-text);
+    color: #fff;
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 4px var(--space-3);
+    border-radius: var(--radius-full);
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--transition);
+  }
+  .whatsapp-float:hover .whatsapp-float__tooltip { opacity: 1; }
+}
+
+/* 1100px — desktop grande */
+@media (min-width: 1100px) {
+  .container { padding-left: var(--space-6); padding-right: var(--space-6); }
+}
+
+.imgctp {
+  width: 70px;
+  height: 50px;
+}
